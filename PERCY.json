@@ -447,7 +447,7 @@
           "4,2": {
             "size": [
               5,
-              3
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -478,7 +478,8 @@
               "_showGlyph": false,
               "Game/Game": "k2024Crescendo",
               "Visuals/Robot Icon Size": 50.0,
-              "Visuals/Show Outside Circles": false
+              "Visuals/Show Outside Circles": false,
+              "Colors/path": "#FFFFFFFF"
             }
           },
           "9,4": {

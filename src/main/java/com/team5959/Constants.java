@@ -29,6 +29,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 //   22 · miniArmMotor 50:1
 //  =================
+//30 CanRange
 public class Constants {
     public static class ControllerConstants{
         public static final int kDriverControllerPort = 0; //port for driver's control

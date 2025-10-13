@@ -17,8 +17,19 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SoftLimitConfig;
 
+//Sensores CAN CTRE
+import com.ctre.phoenix6.CANBus; //Sensor de rango y proximidad CANrange
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CANrangeConfiguration;
+import com.ctre.phoenix6.hardware.CANrange;
+import com.ctre.phoenix6.signals.UpdateModeValue;
+
 public class ElevatorSubsytem extends SubsystemBase{
     //INITIALIZATION
+
+     // Creacion de objeto de sensor de distancia y deteccion de objetos CANrange
+  private final CANBus kCANBus = new CANBus("rio");
+  private final CANrange canRange = new CANrange(10, kCANBus);
 
     //initialize motors
     private final SparkMax elevatorRight;
@@ -50,7 +61,20 @@ public class ElevatorSubsytem extends SubsystemBase{
     boolean elevatorUpperLimitSwitch;
     boolean elevatorDownLimitSwitch;
 
+    StatusSignal<Boolean> coralIsDetected = canRange.getIsDetected(false);
+
     public ElevatorSubsytem(){
+
+         // Configuracion de sensor CanRange
+    CANrangeConfiguration config = new CANrangeConfiguration();
+    config.ProximityParams.MinSignalStrengthForValidMeasurement = 2000; // If CANrange has a signal strength of at least 2000 its valid.
+    config.ProximityParams.ProximityThreshold = 0.1; // If CANrange detects an object within 0.2 meters, it will trigger
+    config.ToFParams.UpdateMode = UpdateModeValue.ShortRange100Hz; // Make the CANrange update as fast as possible at
+    canRange.getConfigurator().apply(config);// Apply the configuration to the CANrange
+
+   
+
+
         //instatiate motors, config and encoder
         elevatorRight = new SparkMax(ElevatorConstants.elevatorRightID, MotorType.kBrushless);
         elevatorLeft = new SparkMax(ElevatorConstants.elevatorLeftID, MotorType.kBrushless);
@@ -150,6 +174,7 @@ public class ElevatorSubsytem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator Position", elevatorEncoder.getPosition());
         SmartDashboard.putBoolean("Sensor arriba", elevatorUpperLimitSwitch);
         SmartDashboard.putBoolean("Sensor abajo", elevatorDownLimitSwitch);
+        SmartDashboard.putBoolean("CanRange Coral", coralIsDetected.getValue());
 
         // PID control mode
         if (!isManualMode) {
