@@ -85,15 +85,15 @@ public SwerveModule (int moduleID, SwerveModuleConstants moduleConstants){
 
 }
     //GET METHODS
-    private double driveVelocity() {
+    public double driveVelocity() {
         return driveEncoder.getVelocity();
     }
 
-    private double drivePosition() {
+    public double drivePosition() {
         return driveEncoder.getPosition();
     }   
 
-    private double getAbsoluteEncoderDegrees() {
+    public double getAbsoluteEncoderDegrees() {
         return (absoluteEncoder.getAbsolutePosition().getValueAsDouble() * 360) - encOffset;
     }
 

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -39,6 +40,8 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 
 public class RobotContainer {
+
+    
   //subsystems
   private final SwerveChassis swerveChassis = new SwerveChassis();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
@@ -75,6 +78,8 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+
+
     swerveChassis.setDefaultCommand(new SwerveDrive(swerveChassis, () -> -control.getLeftY(), () -> -control.getLeftX(), () -> control.getRightX(), true, ()-> control.getR1ButtonPressed()));
     intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem, elevatorSubsytem, ()-> controlOp.getRawAxis(2), ()-> controlOp.getRawAxis(3), ()-> control.getL2Axis(), ()-> control.getR2Axis()));
     elevatorSubsytem.setDefaultCommand(new ElevatorCommand(elevatorSubsytem, ()-> controlOp.getRawButton(1), ()-> controlOp.getRawButton(3), ()-> controlOp.getRawButton(4), ()-> controlOp.getRawButton(2),()-> controlOp.getRawButton(5), ()-> controlOp.getRawButton(6)));
@@ -101,9 +106,12 @@ public class RobotContainer {
     resetNavxButton.onTrue(new InstantCommand(() -> swerveChassis.resetNavx()));
 
     SmartDashboard.putData("Example Auto", new PathPlannerAuto("Forward"));
+
+    
   }
   
   public void periodic(){
+    
   }
   
   public Command getAutonomousCommand() {

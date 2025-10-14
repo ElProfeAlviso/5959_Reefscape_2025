@@ -29,7 +29,7 @@ public class ElevatorSubsytem extends SubsystemBase{
 
      // Creacion de objeto de sensor de distancia y deteccion de objetos CANrange
   private final CANBus kCANBus = new CANBus("rio");
-  private final CANrange canRange = new CANrange(10, kCANBus);
+  private final CANrange canRange = new CANrange(30, kCANBus);
 
     //initialize motors
     private final SparkMax elevatorRight;
@@ -61,7 +61,7 @@ public class ElevatorSubsytem extends SubsystemBase{
     boolean elevatorUpperLimitSwitch;
     boolean elevatorDownLimitSwitch;
 
-    StatusSignal<Boolean> coralIsDetected = canRange.getIsDetected(false);
+    
 
     public ElevatorSubsytem(){
 
@@ -156,6 +156,9 @@ public class ElevatorSubsytem extends SubsystemBase{
         }else if(elevatorDownLimitSwitch){
             speed =  MathUtil.clamp(speed,-0.4,0);
         }   
+        if(canRange.getIsDetected().getValue()){
+            speed = 0;
+        }
         elevatorRight.set(speed);
     }
 
@@ -174,10 +177,10 @@ public class ElevatorSubsytem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator Position", elevatorEncoder.getPosition());
         SmartDashboard.putBoolean("Sensor arriba", elevatorUpperLimitSwitch);
         SmartDashboard.putBoolean("Sensor abajo", elevatorDownLimitSwitch);
-        SmartDashboard.putBoolean("CanRange Coral", coralIsDetected.getValue());
+        SmartDashboard.putBoolean("CanRange Coral", canRange.getIsDetected().getValue());
 
         // PID control mode
-        if (!isManualMode) {
+        if (!isManualMode && canRange.getIsDetected().getValue() == false) {
             if (targetPosition == -10) {
                 double pidOutput = elevatorStartingPositionPID.calculate(elevatorEncoder.getPosition(), targetPosition);
                 elevatorRight.set(pidOutput);
