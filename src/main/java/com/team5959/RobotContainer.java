@@ -72,9 +72,9 @@ public class RobotContainer {
   //AXIS
 
   //Pathplanner
-  private final SendableChooser<String> autoChooser;
+  public final SendableChooser<String> autoChooser;
   private PathPlannerPath path;
-  private String autoChoose;
+  public String autoChoose;
 
   public RobotContainer() {
 
@@ -115,8 +115,9 @@ public class RobotContainer {
   }
   
   public Command getAutonomousCommand() {
+    autoChoose = autoChooser.getSelected();
   try{
-     autoChoose = autoChooser.getSelected();
+     
 
     switch (autoChoose) {
      case kForward:
