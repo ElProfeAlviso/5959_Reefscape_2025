@@ -37,11 +37,11 @@ public class IntakeSubsystem extends SubsystemBase {
         coralIntakeMotorLeftConfig = new SparkMaxConfig();
         algaeIntakeMotorConfig = new SparkMaxConfig();
 
-        coralIntakeMotorRightConfig.idleMode(IdleMode.kBrake);
-        coralIntakeMotorLeftConfig.idleMode(IdleMode.kBrake);
+        coralIntakeMotorRightConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+        coralIntakeMotorLeftConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40);
         coralIntakeMotorLeftConfig.follow(coralIntakeMotorRight, IntakeConstants.coralIntakeMotorLeftInverted);
         coralIntakeMotorRightConfig.inverted(IntakeConstants.coralIntakeMotorRightInverted);
-        algaeIntakeMotorConfig.idleMode(IdleMode.kBrake);
+        algaeIntakeMotorConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40);
 
         coralIntakeMotorRight.configure(coralIntakeMotorRightConfig, null,null);
         coralIntakeMotorLeft.configure(coralIntakeMotorLeftConfig, null,null);

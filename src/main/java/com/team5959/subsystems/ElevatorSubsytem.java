@@ -99,8 +99,8 @@ public class ElevatorSubsytem extends SubsystemBase{
         elevatorRightConfig.apply(elevatorRightSoftLimitConfig);
 
         elevatorLeftConfig.follow(elevatorRight, ElevatorConstants.elevatorLeftInverted);
-        elevatorLeftConfig.idleMode(IdleMode.kBrake);
-        elevatorRightConfig.idleMode(IdleMode.kBrake);
+        elevatorLeftConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+        elevatorRightConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40);
         elevatorRightConfig.inverted(ElevatorConstants.elevatorRightInverted);
 
         elevatorLeft.configure(elevatorLeftConfig, null, null);
