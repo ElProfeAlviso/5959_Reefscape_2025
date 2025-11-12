@@ -145,19 +145,19 @@ public class Constants {
       public static final boolean elevatorLeftInverted = true;
         
       //PID VALUES
-      public static final double KP_ELEVATOR = 0.01;
+      public static final double KP_ELEVATOR = 0.03;
       public static final double KI_ELEVATOR = 0.000; //FIXME adjust pid values for elevator
       public static final double KD_ELEVATOR = 0.0001;
       public static final double KP_SP_ELEVATOR = 0.003;  //SPECIAL P FOR STARTING POSITION
       //POSITION VALUES (in encoder units)
-      public static final double elevatorStartingPosition = -15.00;
+      public static final double elevatorStartingPosition = -13.00;
       public static final double elevatorL1Position = -60.00;  //-60
       public static final double elevatorL2Position = -93.00; //-93 //USE NEGATIVES
       public static final double elevatorL3Position = -190.00; //-190
 
       //SOFT LIMITS
       public static final double elevatorUpperLimit = -190.00;
-      public static final double elevatorLowerLimit = -15.00;
+      public static final double elevatorLowerLimit = -13.00;
       public static final boolean forwardSoftLimitEnabled = true;
       public static final boolean reverseSoftLimitEnabled = true;
 
